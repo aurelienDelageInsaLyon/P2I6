@@ -1,4 +1,5 @@
-
+import networkx as nx
+from matplotlib import pyplot as plt
 
 
 class SimpleGraph:
@@ -65,6 +66,21 @@ class SimpleGraph:
                 if (self.edges[i][j]==1):
                     show = show + "\t<arc source=\"" + self.names[i] +  "\" destination=\"" + self.names[j] + "\">\n";
         return show
+
+    def print_nx(self):
+        G=nx.Graph();
+        labels={}
+        for i in range(self.vertices):
+            labels[i] = names[i];
+        #G.add_node(range(self.vertices))
+        G=nx.relabel_nodes(G,labels)
+        for i in range(self.vertices):
+            for j in range(i,self.vertices):
+                if self.edges[i][j]>0 and i!=j:
+                    G.add_edge(i,j);
+                    G.add_edge(j,i);
+        nx.draw(G, labels=labels,with_labels=True);
+        plt.show();
 
     '''
   //+---------------------------------------------------------------------+//
