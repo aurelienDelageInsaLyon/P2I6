@@ -3,17 +3,16 @@ from matplotlib import pyplot as plt
 
 
 class SimpleGraph:
-
+    __slots__=["edges","names","vertices"]
   ##<! matrice d'adjacence, associant à tout noeud un tableau booléen correspondant aux arcs vers d'autres noeuds
-    edges=[];
+    #edges=[];
 
-  ##<! tableau associant à chaque numéro de noeud une chaîne de caractère représentant par exemple le nom du noeud.
-    names=[];
+  ###<! tableau associant à chaque numéro de noeud une chaîne de caractère représentant par exemple le nom du noeud.
+    #names=[];
 
-  ##<! entier représentant le nombre de noeuds du graphe
-    vertices=None;
+  ###<! entier représentant le nombre de noeuds du graphe
+    #vertices=None;
 
-#WARNING: python et son unique constructeur possible... penser à mettre des None.
     ''' 
    * \fn constructeur de graphes
    * \param int[][] edges : matrice d'ajacence NxN, où N est le nombre de noeuds du graphe, 
@@ -23,7 +22,7 @@ class SimpleGraph:
    * \param vertices : nombre N de noeuds
    * \return SimpleGraph 		            
   ''' 
-    def __init__(self, edges: [[int]], names: [str], vertices: int):
+    def __init__(self, edges: [[int]], names: [str], vertices:int=None):
         # constructeur sans nombre de sommets
         if (vertices==None):
             self.edges=edges;

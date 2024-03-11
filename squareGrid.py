@@ -4,21 +4,22 @@ from weightedVertex import *
 
 class SquareGrid:
 
+    __slots__=["width","height","walls","montagne","DIRS"]
   ##<! largeur de la grille
-    width=-1;
+    #width=-1;
 
-  ##<! hauteur de la grille
-    height=-1;
+  ###<! hauteur de la grille
+    #height=-1;
 
-  ##<! ensemble des obstacles dans la grille. 
-    walls=[];
+  ###<! ensemble des obstacles dans la grille. 
+    #walls=[];
 
-  ##<! ensemble des noeuds 
-  ## WARNING: comment ça des "noeuds" ??
-    forests=[];
+  ###<! ensemble des noeuds 
+  ### WARNING: comment ça des "noeuds" ??
+    #montagne=[];
 
-  ##<! tableau des 4 actions possibles: DIRS[0]=droite, DIRS[1]=bas, DIRS[2]=gauche, DIRS[3]=haut 	
-    DIRS=[]; #### directions tabular
+  ###<! tableau des 4 actions possibles: DIRS[0]=droite, DIRS[1]=bas, DIRS[2]=gauche, DIRS[3]=haut 	
+    #DIRS=[]; #### directions tabular
 
     """ 
    * \fn SquareGrid(ine width, int height) : constructeur SquareGrid
@@ -30,7 +31,8 @@ class SquareGrid:
         self.width=width;
         self.height=height;
         self.walls=[]
-        self.forests=[]
+        self.montagne=[]
+        self.DIRS=[]
 
         ######################## instanciate all 4 directions ##########
         self.DIRS.append(Pair(1,0));
@@ -41,10 +43,11 @@ class SquareGrid:
     """ 
    * \fn boolean in_bounds(Pair id) : fonction vérifiant si on est toujours dans la grille
    * \param Pair id : noeud de la grille
-   * \return boolean : 0 si on est hars de la grille, sinon 1.
+   * \return boolean : 0 si on est hors de la grille, sinon 1.
 """ 
     def in_bounds(self,id: Pair):
-        return (0 <= id.x and id.x < self.width and 0 <= id.y and id.y < self.height);
+        tmp = (0 <= id.x and id.x < self.width and 0 <= id.y and id.y < self.height);
+        return tmp;
 
     """ 
    * \fn boolean passable(Pair id) : fonction vérifiant si un noeud est accessible ou pas
@@ -61,7 +64,7 @@ class SquareGrid:
    * \return double        : coût de l'arc
 """ 
     def cost(self, from_node: Pair, to_node: Pair):
-        if (to_node in self.forests):
+        if (to_node in self.montagne):
             return 5
         return 1;
 
@@ -114,33 +117,33 @@ class SquareGrid:
         grid = SquareGrid(10,10);
         grid.add_rect(1, 7, 4, 9);
 
-        grid.forests.append(Pair(3,4));
-        grid.forests.append(Pair(3,5));
-        grid.forests.append(Pair(4,1));
-        grid.forests.append(Pair(4,2));
-        grid.forests.append(Pair(4,3));
-        grid.forests.append(Pair(4,4));
-        grid.forests.append(Pair(4,5));
-        grid.forests.append(Pair(4,6));
-        grid.forests.append(Pair(4,7));
-        grid.forests.append(Pair(4,8));
-        grid.forests.append(Pair(5,1));
-        grid.forests.append(Pair(5,2));
-        grid.forests.append(Pair(5,3));
-        grid.forests.append(Pair(5,4));
-        grid.forests.append(Pair(5,5));
-        grid.forests.append(Pair(5,6));
-        grid.forests.append(Pair(5,7));
-        grid.forests.append(Pair(5,8));
-        grid.forests.append(Pair(6,2));
-        grid.forests.append(Pair(6,3));
-        grid.forests.append(Pair(6,4));
-        grid.forests.append(Pair(6,5));
-        grid.forests.append(Pair(6,6));
-        grid.forests.append(Pair(6,7));
-        grid.forests.append(Pair(7,3));
-        grid.forests.append(Pair(7,4));
-        grid.forests.append(Pair(7,5));
+        grid.montagne.append(Pair(3,4));
+        grid.montagne.append(Pair(3,5));
+        grid.montagne.append(Pair(4,1));
+        grid.montagne.append(Pair(4,2));
+        grid.montagne.append(Pair(4,3));
+        grid.montagne.append(Pair(4,4));
+        grid.montagne.append(Pair(4,5));
+        grid.montagne.append(Pair(4,6));
+        grid.montagne.append(Pair(4,7));
+        grid.montagne.append(Pair(4,8));
+        grid.montagne.append(Pair(5,1));
+        grid.montagne.append(Pair(5,2));
+        grid.montagne.append(Pair(5,3));
+        grid.montagne.append(Pair(5,4));
+        grid.montagne.append(Pair(5,5));
+        grid.montagne.append(Pair(5,6));
+        grid.montagne.append(Pair(5,7));
+        grid.montagne.append(Pair(5,8));
+        grid.montagne.append(Pair(6,2));
+        grid.montagne.append(Pair(6,3));
+        grid.montagne.append(Pair(6,4));
+        grid.montagne.append(Pair(6,5));
+        grid.montagne.append(Pair(6,6));
+        grid.montagne.append(Pair(6,7));
+        grid.montagne.append(Pair(7,3));
+        grid.montagne.append(Pair(7,4));
+        grid.montagne.append(Pair(7,5));
 
         grid.draw_grid(None,None,None);
 
@@ -155,12 +158,8 @@ class SquareGrid:
                 id = Pair(x,y);
                 if (id in self.walls):
                     print('#', end=" ")
-                elif (point_to!=None and (id in point_to.values())):
-                    #p=point_to[id];
-                    p=0
-                    for tmp in point_to.keys():
-                        if (point_to[tmp]==id):
-                            p=tmp
+                elif (point_to!=None and (id in point_to.keys())):
+                    p=point_to[id];
                     if (p.x==x+1):
                         print("\u2192",end=" ")
                     elif (p.x==x-1):
@@ -172,10 +171,11 @@ class SquareGrid:
                     else :
                         print("*", end=" ");
                 elif (distances!=None and len(distances)>0 and (id in distances.keys())):
-                    print(distances[id],end=" ");
+                    #fstrin
+                    print(f"{distances[id]:4d}",end=" ");
                 elif (path != None and (id in path)):
                     print('@',end=" ");
-                #elif(id in self.forests):
+                #elif(id in self.montagne):
                 #    print('f',end=" ")
                 else:
                     print(".",end=" ");
@@ -187,7 +187,7 @@ class SquareGrid:
   //      Question 3. Compléter le fonction BFS                            //
   //+---------------------------------------------------------------------+//
   /**
-   * \fn HashMap<Pair,Pair> breadth_first_search(Pair start) : algorithme BFS
+   * \fn Dictionnaire<Pair,Pair> breadth_first_search(Pair start) : algorithme BFS
    * \param Pair start : noeud initial
    * \return HashMap<Pair,Pair> : dictionnaire stockant à tout noeud, le noeud voisin duquel il est accessible selon BFS
    * \description de l'algorithme:
@@ -201,7 +201,6 @@ class SquareGrid:
 """
     def bfs(self, start: Pair):
         return
-
     """
   //+---------------------------------------------------------------------+//
   //      Question 5. Compléter la reconstruction du chemin                //
@@ -213,7 +212,7 @@ class SquareGrid:
    */ 
 """
     def reconstruct_path(self, start: Pair, goal: Pair, came_from):
-        return 
+        return
     """
   //+---------------------------------------------------------------------+//
   //      Question 7.  Compléter l'algorithme Dijkstra                     //
@@ -227,14 +226,16 @@ class SquareGrid:
   //+---------------------------------------------------------------------+//
 """
     def heuristic(self, a: Pair, b: Pair):
-        return
+        return 0.0 
     """
   //+---------------------------------------------------------------------+//
   //      Question 10.  Completer l'algorithme A*                          //
   //+---------------------------------------------------------------------+//
 """
     def a_star_search(self, start: Pair, goal: Pair, came_from, cost_so_far):
-        return
+        return;
+
+
 
 def test_bfs():
     print("** breadth-first-search algorithm **");
@@ -252,7 +253,6 @@ def test_dijkstra():
     came_from={};
     cost_so_far={};
     grid.dijkstra_search(start,goal,came_from,cost_so_far);
-    print("came from: ", came_from)
     grid.draw_grid(None,came_from,None);
     print("\n",end="");
     grid.draw_grid(cost_so_far,None,None);

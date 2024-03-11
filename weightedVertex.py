@@ -2,9 +2,8 @@ from pair import *
 import heapq
 
 class WeightedVertex:
-    
-    source=None;
-    value=None
+
+    __slots__=["source","value"]
 
     def __init__(self, source: Pair, value: float):
         self.source=source;

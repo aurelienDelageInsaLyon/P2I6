@@ -1,8 +1,7 @@
 
 class Pair:
-    x=-1;
-    y=-1;
-    
+    __slots__=["x","y"]
+
     def __init__(self,x: int, y: int):
         self.x=x;
         self.y=y;
