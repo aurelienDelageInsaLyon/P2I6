@@ -71,7 +71,6 @@ class SimpleGraph:
         labels={}
         for i in range(self.vertices):
             labels[i] = names[i];
-        #G.add_node(range(self.vertices))
         G=nx.relabel_nodes(G,labels)
         for i in range(self.vertices):
             for j in range(i,self.vertices):
