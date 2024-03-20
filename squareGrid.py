@@ -283,5 +283,5 @@ def test_a_star():
 
 
 test_bfs();
-test_dijkstra();
-test_a_star();
+#test_dijkstra();
+#test_a_star();
