@@ -31,8 +31,8 @@ class SimpleGraph:
         # constructeur avec nombre de sommets
         else:
             self.vertices=vertices;
-            self.edges=[[0 for _ in range(vertices)] for _ in range(vertices)]
-            self.names=[""+str(i)+"" for i in range(vertices)]
+            self.edges=[[0 for _ in range(vertices)] for _ in range(vertices)] #construit une matrix 2D n*n, remplie de 0 (où n correspond au nombre de sommets)
+            self.names=[""+str(i)+"" for i in range(vertices)] #construit un tableau 1D de taille n, rempli de 0
     
     ''' 
    * \fn int[] getNeighbors(int vertex)
