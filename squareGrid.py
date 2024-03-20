@@ -219,6 +219,7 @@ class SquareGrid:
   //+---------------------------------------------------------------------+//
 """
     def dijkstra_search(self, start: Pair, goal: Pair, came_from, cost_so_far):
+        print("avez-vous identifié dans la classe SquareGrid comment récupérer l'ensemble des sommets?")
         return;
     """
   //+---------------------------------------------------------------------+//
